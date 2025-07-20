@@ -1,0 +1,80 @@
+@import "tailwindcss";
+
+@source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
+@source '../../storage/framework/views/*.php';
+@source '../**/*.blade.php';
+@source '../**/*.js';
+
+@theme {
+}
+
+body {
+    @apply bg-gray-100 text-gray-700;
+    font-family: "Rubik";
+}
+
+h1 {
+    @apply text-2xl font-bold text-cyan-500;
+}
+h2 {
+    @apply text-xl font-bold;
+}
+h3 {
+    @apply text-lg font-bold;
+}
+
+ul {
+    @apply my-10;
+}
+
+/* header */
+header {
+    @apply bg-white;
+
+    nav {
+        @apply flex items-center gap-5 max-w-screen-lg px-12 py-4 mx-auto;
+    }
+
+    h1 {
+        @apply mr-auto;
+    }
+}
+
+/* form */
+form {
+    @apply max-w-screen-sm;
+}
+
+.form-group {
+    @apply mb-4;
+}
+
+input,
+textarea {
+    @apply block w-full mt-1 p-2 bg-white;
+}
+
+/* custom classes */
+.container {
+    @apply max-w-screen-lg mx-auto px-12 py-8;
+}
+
+.card {
+    @apply bg-white rounded border border-gray-200 px-4 py-3 my-2 flex justify-between items-center;
+}
+
+.started {
+    @apply bg-blue-100/50;
+}
+
+.btn {
+    @apply bg-gray-200 rounded px-3 py-2 cursor-pointer;
+}
+
+.btn-primary {
+    @apply hover:bg-cyan-500 hover:text-white;
+}
+
+.btn-danger {
+    @apply bg-red-500 hover:bg-red-600 text-white;
+}
