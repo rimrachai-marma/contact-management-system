@@ -1,6 +1,10 @@
 <x-layout>
   <div class="shadow-xs border border-gray-300 rounded-xl">
+
+    {{-- HEADER --}}
     <div class="border-b border-gray-300 py-3 px-4 flex justify-between items-center gap-2">
+
+      {{-- BACK BUTTON --}}
       <a class="flex items-center gap-0.5" href="{{ route('contacts.index') }}">
         <svg class="w-5 h-5 fill-current" version="1.1" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
           <path d="M15.707 17.293l-5.293-5.293 5.293-5.293c0.391-0.391 0.391-1.024 0-1.414s-1.024-0.391-1.414 0l-6 6c-0.391 0.391-0.391 1.024 0 1.414l6 6c0.391 0.391 1.024 0.391 1.414 0s0.391-1.024 0-1.414z"></path>
@@ -8,10 +12,13 @@
         <span>Back</span>
       </a>
 
+      {{-- HEADING --}}
       <h2>Contact Details</h2>
       
+      {{-- DELETE & EDIT --}}
       <div class="flex items-center gap-3">
 
+        {{-- DELETE MODAL --}}
         <dialog data-modal class="m-auto bottom-25 py-3 px-4 rounded-lg space-y-5 backdrop:bg-black/50">
           <p class="flex flex-col items-center">
             <span>Are you sure you want to delete this contact?</span>
@@ -34,7 +41,7 @@
           </svg>
         </button>
 
-      
+        {{-- EDIT --}}
         <a class="flex items-center justify-center" href="{{ route('contacts.edit', $contact->id) }}">
           <svg class="w-5 h-5 fill-current" version="1.1" xmlns="http://www.w3.org/2000/svg" width="24" height="28" viewBox="0 0 24 28">
             <path d="M5.672 24l1.422-1.422-3.672-3.672-1.422 1.422v1.672h2v2h1.672zM13.844 9.5c0-0.203-0.141-0.344-0.344-0.344-0.094 0-0.187 0.031-0.266 0.109l-8.469 8.469c-0.078 0.078-0.109 0.172-0.109 0.266 0 0.203 0.141 0.344 0.344 0.344 0.094 0 0.187-0.031 0.266-0.109l8.469-8.469c0.078-0.078 0.109-0.172 0.109-0.266zM13 6.5l6.5 6.5-13 13h-6.5v-6.5zM23.672 8c0 0.531-0.219 1.047-0.578 1.406l-2.594 2.594-6.5-6.5 2.594-2.578c0.359-0.375 0.875-0.594 1.406-0.594s1.047 0.219 1.422 0.594l3.672 3.656c0.359 0.375 0.578 0.891 0.578 1.422z"></path>
@@ -43,6 +50,7 @@
       </div>
     </div>
     
+    {{-- MAIN CONTENT --}}
     <div class="py-3 px-4 space-y-4">
       <div class="flex items-center gap-2">
         <div class="bg-gray-200 h-14 w-14 rounded-full relative border border-gray-300 flex justify-center items-center">
@@ -63,6 +71,7 @@
           @endif
         </div>
 
+        {{-- STARTED & UNSTARTED --}}
         <form action="{{ route('contacts.toggleStarted', $contact->id) }}" method="POST" class="ml-auto">
             @csrf
             @method("PATCH")
@@ -117,6 +126,8 @@
     </div>
   </div>
 
+
+  {{-- CONTROL DELETE MODAL --}}
   <script>
     const modal = document.querySelector("[data-modal]");
     const deleteBtn = document.querySelector("[data-delete-btn]");
@@ -125,13 +136,13 @@
         modal.showModal();
     });
 
-    modal.addEventListener("click", e => {
+    modal.addEventListener("click", event => {
       const dialogDimensions = modal.getBoundingClientRect()
       if (
-        e.clientX < dialogDimensions.left ||
-        e.clientX > dialogDimensions.right ||
-        e.clientY < dialogDimensions.top ||
-        e.clientY > dialogDimensions.bottom
+        event.clientX < dialogDimensions.left ||
+        event.clientX > dialogDimensions.right ||
+        event.clientY < dialogDimensions.top ||
+        event.clientY > dialogDimensions.bottom
       ) {
         modal.close()
       }

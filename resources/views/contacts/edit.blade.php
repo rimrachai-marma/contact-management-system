@@ -5,6 +5,7 @@
 
     <h2>Edit Contact</h2>
 
+    {{-- FIRST NAME --}}
     <div class="form-group mt-4">
       <label for="first_name">First Name</label>
       <input 
@@ -19,6 +20,7 @@
       @enderror
     </div>
 
+    {{-- LAST NAME --}}
     <div class="form-group">
       <label for="last_name">Last Name</label>
       <input 
@@ -33,6 +35,7 @@
       @enderror
     </div>
 
+    {{-- PHONE --}}
     <div class="form-group">  
       <label for="phone">Phone Number</label>
       <input 
@@ -47,6 +50,7 @@
       @enderror
     </div>
 
+    {{-- EMAIL --}}
     <div class="form-group">  
       <label for="email">Email</label>
       <input 
@@ -61,6 +65,7 @@
       @enderror
     </div>
 
+    {{-- ADDRESS --}}
     <div class="form-group">  
       <label for="address">Address</label>
       <input 
@@ -74,7 +79,8 @@
         <span class="text-sm text-red-500">{{ $message }}</span>
       @enderror
     </div>
-
+  
+    {{-- DATE OF BIRTH --}}
     <div class="form-group"> 
       <label for="dob">Date of Birth</label>
       <input 
@@ -89,6 +95,7 @@
       @enderror
     </div>
     
+    {{-- NOTES --}}
     <div class="form-group"> 
       <label for="notes">Notes</label>
       <textarea
@@ -104,6 +111,5 @@
 
 
     <button type="submit" class="btn btn-primary">Update Contact</button>
-    
   </form>
 </x-layout>
