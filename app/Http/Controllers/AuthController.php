@@ -12,10 +12,12 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\ValidationException;
 
 class AuthController extends Controller {
+    // route::get -> /register
     public function showRegister () : View {
         return view("auth.register");
     }
 
+    // route::post -> /register
     public function register (RegisterRequest $request) : RedirectResponse {
         $user = User::create($request->validated());
 
@@ -27,10 +29,12 @@ class AuthController extends Controller {
         return redirect()->route('contacts.index')->with('success', 'Welcome!');     
     }
 
+    // route::get -> /login
     public function showLogin () : View {
         return view("auth.login");
     }
 
+    // route::post -> /login
     public function login (LoginRequest $request) : RedirectResponse {
         if (!Auth::attempt($request->validated())) {
             throw ValidationException::withMessages([
@@ -44,6 +48,7 @@ class AuthController extends Controller {
 
     }
 
+    // route::post -> /logout
     public function logout (Request $request) : RedirectResponse{
         Auth::logout();
 
