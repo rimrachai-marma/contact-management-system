@@ -10,7 +10,7 @@ class ContactFactory extends Factory {
         return [
             "first_name" => fake()->firstName(),
             "last_name" => fake()->lastName(),
-            "user_id" => "050ff9ff-d204-483d-809f-78b6ccaf6653", //User::inRandomOrder()->first()->id,
+            "user_id" => "696da4f8-916e-4194-8909-d09b6c08f644", //User::inRandomOrder()->first()->id,
             "phone" => fake()->phoneNumber(),
             "email" => fake()->email(),
             "address" => fake()->address(),

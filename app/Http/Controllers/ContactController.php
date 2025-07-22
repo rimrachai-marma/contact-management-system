@@ -3,17 +3,53 @@
 namespace App\Http\Controllers;
 
 use App\Models\Contact;
-use Illuminate\Support\Facades\Auth;
 
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\StoreContactRequest;
 use App\Http\Requests\UpdateContactRequest;
 
 
 class ContactController extends Controller{
     // route::get -> /contacts
-    public function index() {       
-        $contacts = Contact::where("user_id", Auth::id())->orderBy('first_name', 'asc')->paginate(12);
-        return view('contacts.index', ["contacts" => $contacts]);
+    public function index(Request $request) {
+        $query = Contact::where('user_id', Auth::id());
+
+        // Search
+        if ($request->has('search') && !empty($request->search)) {
+            $search = $request->search;
+
+            $query->where(function ($_query) use ($search) {
+                $_query->where('first_name', 'like', '%' . $search . '%')
+                ->orWhere('last_name', 'like', '%' . $search . '%')
+                ->orWhere('email', 'like', '%' . $search . '%');
+            });
+        }
+
+        // Started filter
+        if ($request->has('started') && in_array($request->started, ['0', '1'])) {
+            $query->where('started', $request->started);
+        }
+
+        // Sorting
+        $sortKey = $request->input('sort', 'name');
+        $order = $request->input('order', 'asc');
+ 
+        $sort = ['name' => 'first_name', 'created_at' => 'created_at'][$sortKey] ?? 'first_name';
+        $order = in_array(strtolower($order), ['asc', 'desc']) ? strtolower($order) : 'asc';
+
+        $query->orderBy($sort, $order);
+
+        $contacts = $query->paginate(12)->appends($request->only(['search', 'started', 'sort', 'order']));
+
+        return view('contacts.index', [
+            'contacts' => $contacts,
+            'search' => $request->input('search'),
+            'started' => $request->input('started'),
+            'sort' => $request->input('sort',),
+            'order' => $request->input('order'),
+        ]);
+        
     }
 
     // route::get -> /contacts/create

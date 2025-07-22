@@ -6,8 +6,8 @@ use App\Http\Requests\LoginRequest;
 use App\Http\Requests\RegisterRequest;
 
 use Illuminate\View\View;
-use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\ValidationException;
 

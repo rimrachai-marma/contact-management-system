@@ -1,8 +1,8 @@
 {
     "$schema": "https://getcomposer.org/schema.json",
-    "name": "laravel/laravel",
+    "name": "rimrachai-marma/contact_management_system",
     "type": "project",
-    "description": "The skeleton application for the Laravel framework.",
+    "description": "A simple laravel CRUD app with authentication.",
     "keywords": [
         "laravel",
         "framework"

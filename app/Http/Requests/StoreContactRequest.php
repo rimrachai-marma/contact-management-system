@@ -44,3 +44,5 @@ class StoreContactRequest extends FormRequest{
         ];
     }
 }
+
+// php artisan make:request StoreContactRequest
