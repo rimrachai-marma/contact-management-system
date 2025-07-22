@@ -7,14 +7,21 @@
     "routes": [
         {
             "src": "/build/(.*)",
-            "dest": "/build/$1"
+            "dest": "/public/build/"
+        },
+        {
+            "src": "/resources/(.*)",
+            "dest": "/public/resources/"
+        },
+        {
+            "src": "/favicon/(.*)",
+            "dest": "/public/favicon/"
         },
         {
             "src": "/(.*)",
             "dest": "/api/index.php"
         }
     ],
-    "outputDirectory": "public",
 
     "env": {
         "APP_ENV": "production",
