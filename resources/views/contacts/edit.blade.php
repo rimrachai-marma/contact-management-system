@@ -1,5 +1,5 @@
 <x-layout>
-  <form action="{{ route('contacts.update', $contact->id) }}" method="POST" class="mx-auto">
+  <form action="{{ route('contacts.update', $contact->id) }}" method="POST" class="mx-auto max-w-screen-sm">
     @csrf
     @method('PATCH')
 

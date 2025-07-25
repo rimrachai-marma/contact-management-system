@@ -1,5 +1,5 @@
 <x-layout>
-  <form action="{{ route('login') }}" method="POST" class="mx-auto">
+  <form action="{{ route('login') }}" method="POST" class="mx-auto max-w-screen-sm">
     @csrf
 
     <h2>Log In to Your Account</h2>

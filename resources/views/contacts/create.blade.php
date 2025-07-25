@@ -1,5 +1,5 @@
 <x-layout>
-  <form action="{{ route('contacts.store') }}" method="POST" class="mx-auto">
+  <form action="{{ route('contacts.store') }}" method="POST" class="mx-auto max-w-screen-sm">
     @csrf
 
     <h2>Create New Contact</h2>

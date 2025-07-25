@@ -41,17 +41,13 @@ header {
 }
 
 /* form */
-form {
-    @apply max-w-screen-sm;
-}
-
 .form-group {
     @apply mb-4;
 }
 
-input,
+input:not([type="search"]),
 textarea {
-    @apply block w-full mt-1 p-2 bg-white;
+    @apply block w-full p-2 bg-white;
 }
 
 /* custom classes */

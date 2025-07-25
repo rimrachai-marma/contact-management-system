@@ -1,4 +1,141 @@
 <x-layout>
+    <div class="flex items-center gap-8 mb-6 w-full">
+        <form method="GET" action="{{ route('contacts.index', ['started' => request('started')]) }}" class="w-full" data-search-form>
+            <div class="flex items-center h-10 border rounded">
+                <input
+                    type="search"
+                    name="search"
+                    value="{{ request('search') }}"
+                    placeholder="Search with name or email"
+                    class="pl-3 outline-0 w-full h-full bg-transparent"
+                    data-search-input
+                />
+                <button class="flex justify-center items-center h-full w-10 cursor-pointer">
+                    <svg class="w-5 h-5 fill-current" version="1.1" xmlns="http://www.w3.org/2000/svg" width="26" height="28" viewBox="0 0 26 28">
+                        <path d="M18 13c0-3.859-3.141-7-7-7s-7 3.141-7 7 3.141 7 7 7 7-3.141 7-7zM26 26c0 1.094-0.906 2-2 2-0.531 0-1.047-0.219-1.406-0.594l-5.359-5.344c-1.828 1.266-4.016 1.937-6.234 1.937-6.078 0-11-4.922-11-11s4.922-11 11-11 11 4.922 11 11c0 2.219-0.672 4.406-1.937 6.234l5.359 5.359c0.359 0.359 0.578 0.875 0.578 1.406z"></path>
+                    </svg>
+                </button>
+            </div>
+
+            <!-- Preserve filter and sort -->
+            @if(request('started') !== null)
+                <input type="hidden" name="started" value="{{ request('started') }}">
+            @endif
+
+            @if(request('sort') !== null)
+                <input type="hidden" name="sort" value="{{ request('sort') }}">
+            @endif
+
+            @if(request('order') !== null)
+                <input type="hidden" name="order" value="{{ request('order') }}">
+            @endif
+        </form>
+        <script>
+            document.querySelector("[data-search-form]").addEventListener('submit', function () {
+                const input = document.querySelector("[data-search-input]");
+                if (input.value.trim() === '') {
+                    input.removeAttribute('name');
+                }
+            });
+        </script>
+
+        <form method="GET" action="{{ route('contacts.index') }}" data-status-form>
+            <select name="started" data-status-select class="px-3 h-10 border rounded">
+                <option value="">-- Select Status --</option>
+                <option value="1" {{ request('started') === '1' ? 'selected' : '' }}>Started</option>
+                <option value="0" {{ request('started') === '0' ? 'selected' : '' }}>Not Started</option>
+            </select>
+
+            <!-- Preserve search and sort -->
+            @if(request('search') !== null)
+                <input type="hidden" name="search" value="{{ request('search') }}">
+            @endif
+
+            @if(request('sort') !== null)
+                <input type="hidden" name="sort" value="{{ request('sort') }}">
+            @endif
+
+            @if(request('order') !== null)
+                <input type="hidden" name="order" value="{{ request('order') }}">
+            @endif
+        </form>
+
+        <script>
+            document.querySelector("[data-status-select]").addEventListener('change', function () {
+                const form = document.querySelector("[data-status-form]");
+                if (this.value === "") {
+                    this.removeAttribute('name');
+                }
+
+                form.submit();
+            });
+        </script>
+
+        <div class="flex items-center justify-between gap-2 h-10 border rounded">
+            <form method="GET" action="{{ route('contacts.index') }}" class="w-full" data-sort-form>
+                <select name="sort" data-sort-select class="pl-3 h-full outline-0 bg-transparent">
+                    <option value="">-- Sort By</option>
+                    <option value="name" {{ request('sort') === 'name' ? 'selected' : '' }}>Name</option>
+                    <option value="created_at" {{ request('sort') === 'created_at' ? 'selected' : '' }}>Created At</option>
+                </select>
+
+                <!-- Preserve search filter and order -->
+                @if(request('search') !== null)
+                    <input type="hidden" name="search" value="{{ request('search') }}">
+                @endif
+
+                @if(request('started') !== null)
+                    <input type="hidden" name="started" value="{{ request('started') }}">
+                @endif
+
+                @if(request('order') !== null)
+                    <input type="hidden" name="order" value="{{ request('order') }}">
+                @endif
+            </form>
+            <script>
+                document.querySelector("[data-sort-select]").addEventListener('change', function () {
+                    const form = document.querySelector("[data-sort-form]");
+                    if (this.value === "") {
+                        this.removeAttribute('name');
+                    }
+
+                    form.submit();
+                });
+            </script>
+
+            <form method="GET" action="{{ route('contacts.index') }}" class="w-full" data-order-form>
+                <select name="order" data-order-select class="pr-3 h-full outline-0 bg-transparent">
+                    <option value="">Order By --</option>
+                    <option value="asc" {{ request('order') === 'asc' ? 'selected' : '' }}>ASC</option>
+                    <option value="desc" {{ request('order') === 'desc' ? 'selected' : '' }}>DESC</option>
+                </select>
+
+                <!-- Preserve search, filter and sort -->
+                @if(request('search') !== null)
+                    <input type="hidden" name="search" value="{{ request('search') }}">
+                @endif
+
+                @if(request('started') !== null)
+                    <input type="hidden" name="started" value="{{ request('started') }}">
+                @endif
+
+                @if(request('sort') !== null)
+                    <input type="hidden" name="sort" value="{{ request('sort') }}">
+                @endif
+            </form>
+            <script>
+                document.querySelector("[data-order-select]").addEventListener('change', function () {
+                    const form = document.querySelector("[data-order-form]");
+                    if (this.value === "") {
+                        this.removeAttribute('name');
+                    }
+
+                    form.submit();
+                });
+            </script>
+        </div>
+    </div>
+
     <h2>All Contacts</h2>
     @if ($contacts->count() > 0)
         <ul>

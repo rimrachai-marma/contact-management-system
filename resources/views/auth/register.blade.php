@@ -1,5 +1,5 @@
 <x-layout>
-  <form action="{{ route('register') }}" method="POST" class="mx-auto">
+  <form action="{{ route('register') }}" method="POST" class="mx-auto max-w-screen-sm">
     @csrf
 
     <h2>Register for an Account</h2>
