@@ -31,16 +31,28 @@
             @endif
         </form>
         <script>
-            document.querySelector("[data-search-form]").addEventListener('submit', function () {
-                const input = document.querySelector("[data-search-input]");
-                if (input.value.trim() === '') {
-                    input.removeAttribute('name');
+            function debounce(func, delay) {
+                let timer;
+                return function (...args) {
+                    clearTimeout(timer);
+                    timer = setTimeout(() => func.apply(this, args), delay);
+                };
+            }
+
+            const form = document.querySelector("[data-search-form]");
+            const input = document.querySelector("[data-search-input]");
+
+            input.addEventListener('input', debounce(function () {
+                if (this.value.trim() === "") {
+                    this.removeAttribute('name');
                 }
-            });
+
+                form.submit();
+            }, 500));
         </script>
 
         <form method="GET" action="{{ route('contacts.index') }}" data-status-form>
-            <select name="started" data-status-select class="px-3 h-10 border rounded">
+            <select name="started" data-status-select class="px-3 h-10 border rounded cursor-pointer bg-transparent">
                 <option value="">-- Select Status --</option>
                 <option value="1" {{ request('started') === '1' ? 'selected' : '' }}>Started</option>
                 <option value="0" {{ request('started') === '0' ? 'selected' : '' }}>Not Started</option>
@@ -73,7 +85,7 @@
 
         <div class="flex items-center justify-between gap-2 h-10 border rounded">
             <form method="GET" action="{{ route('contacts.index') }}" class="w-full" data-sort-form>
-                <select name="sort" data-sort-select class="pl-3 h-full outline-0 bg-transparent">
+                <select name="sort" data-sort-select class="pl-3 h-full outline-0 cursor-pointer bg-transparent">
                     <option value="">-- Sort By</option>
                     <option value="name" {{ request('sort') === 'name' ? 'selected' : '' }}>Name</option>
                     <option value="created_at" {{ request('sort') === 'created_at' ? 'selected' : '' }}>Created At</option>
@@ -104,7 +116,7 @@
             </script>
 
             <form method="GET" action="{{ route('contacts.index') }}" class="w-full" data-order-form>
-                <select name="order" data-order-select class="pr-3 h-full outline-0 bg-transparent">
+                <select name="order" data-order-select class="pr-3 h-full outline-0 bg-transparent cursor-pointer">
                     <option value="">Order By --</option>
                     <option value="asc" {{ request('order') === 'asc' ? 'selected' : '' }}>ASC</option>
                     <option value="desc" {{ request('order') === 'desc' ? 'selected' : '' }}>DESC</option>
@@ -164,6 +176,12 @@
         </ul>
 
     {{ $contacts->onEachSide(1)->links() }}
+
+    @elseif ($totalContacts > 0)
+        <div class="flex flex-col items-center gap-4 px-8 py-16">
+            <p class="text-lg">No contacts found!</p>
+            <a href="{{ route('contacts.index') }}" class="btn btn-primary">View All Contacts ({{ $totalContacts }})</a>
+        </div>
     @else
         <div class="flex flex-col items-center gap-4 px-8 py-16">
             <p class="text-lg">You have no saved contact!</p>
