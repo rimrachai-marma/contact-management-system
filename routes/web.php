@@ -24,9 +24,9 @@ Route::middleware(['auth'])->group(function () {
     Route::patch('/contacts/{contact}/toggle-started', [ContactController::class, 'toggleStarted'])->name('contacts.toggleStarted');
 
     // Admin routes for testing purposes 
-    Route::prefix('admin')->name('admin.')->group(function () {
+    Route::prefix('admin')->name('admin.')->middleware(["admin"])->group(function () {
         Route::get('/dashboard', function () {
-            Gate::authorize('access-dashboard');
+            // Gate::authorize('super-admin');
             return view('admin.dashboard');
         })->name('dashboard');
     });

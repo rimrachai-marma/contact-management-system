@@ -24,8 +24,8 @@ class AppServiceProvider extends ServiceProvider {
             URL::forceScheme('https');
         }
 
-        Gate::define('access-dashboard', function (User $user) {
-            return $user->role === 'admin';
+        Gate::define('super-admin', function (User $user) {
+            return $user->role === 'super-admin';
         });
     }
 }
