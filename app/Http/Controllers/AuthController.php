@@ -39,7 +39,7 @@ class AuthController extends Controller {
         if (!Auth::attempt($request->validated())) {
             throw ValidationException::withMessages([
                 'credentials' => __('auth.failed'),
-            ]);   
+            ]);
         }
 
         $request->session()->regenerate();

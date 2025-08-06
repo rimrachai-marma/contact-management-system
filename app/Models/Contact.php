@@ -27,3 +27,4 @@ class Contact extends Model {
 }
 
 // php artisan make:model Contact -mfs
+// php artisan make:model Contact -a
