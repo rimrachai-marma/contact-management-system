@@ -44,7 +44,7 @@ class ContactController extends Controller {
         $query->orderBy($sort, $order);
 
         $contacts = $query->paginate(12)->appends($request->only(['search', 'started', 'sort', 'order']));
-        $totalContacts = Contact::count();
+        $totalContacts = Contact::where('user_id', Auth::id())->count();
 
         return view('contacts.index', [
             'contacts' => $contacts,
