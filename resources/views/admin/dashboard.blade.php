@@ -16,7 +16,7 @@
     <body>
         <div class="flex flex-col items-center gap-4 px-12 py-16">
             <h1>Admin Dashboard</h1>
-            <p>This page is for testing (Authorization with <code>Gate</code>) purposes only.</p>
+            <p>This page is for testing purposes only.</p>
             <a href="/" class="btn btn-primary">Go Back Home</a>
         </div>
     </body>
