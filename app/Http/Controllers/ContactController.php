@@ -16,7 +16,8 @@ class ContactController extends Controller {
 
     // route::get -> /contacts
     public function index(Request $request) {
-        $query = Contact::where('user_id', Auth::id());
+        $userId = Auth::id();
+        $query = Contact::where('user_id', $userId);
 
         // Search
         if ($request->has('search') && !empty($request->search)) {
@@ -35,16 +36,18 @@ class ContactController extends Controller {
         }
 
         // Sorting
-        $sortKey = $request->input('sort', 'name');
-        $order = $request->input('order', 'asc');
- 
-        $sort = ['name' => 'first_name', 'created_at' => 'created_at'][$sortKey] ?? 'first_name';
-        $order = in_array(strtolower($order), ['asc', 'desc']) ? strtolower($order) : 'asc';
+        $allowedSorts = [
+            'name' => 'first_name',
+            'created_at' => 'created_at',
+        ];
+
+        $sort = $allowedSorts[$request->input('sort', 'name')] ?? 'first_name';
+        $order = strtolower($request->input('order', 'asc')) === 'desc' ? 'desc' : 'asc';
 
         $query->orderBy($sort, $order);
 
         $contacts = $query->paginate(12)->appends($request->only(['search', 'started', 'sort', 'order']));
-        $totalContacts = Contact::where('user_id', Auth::id())->count();
+        $totalContacts = Contact::where('user_id', $userId)->count();
 
         return view('contacts.index', [
             'contacts' => $contacts,
